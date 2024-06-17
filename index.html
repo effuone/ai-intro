@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/black.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<img src="./assets/intro_meme.jpeg" alt="sam atlman ugaraet"
+					style="height: 380px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+				<h3>Introduction to LLM Integration🔥</h3>
+				<p>
+				<h6>или как поженить AI с вашим бэком🏩</h6>
+				<small>Mentored by <a href="https://www.linkedin.com/in/alibek-seitov-2b7055243/">Alibackend</a></small>
+				</p>
+			</section>
+			<section>
+				<p>Who am I?</p>
+				<ul>
+					<li>ITSTEP Academy 2019 graduate🖥️</li>
+					<li>n! incubator 2022 alumni & finalist🐤</li>
+					<li>ex-frontend dev at ZebraCoffee☕</li>
+					<li>n! incubator 2023 frontend mentor⚛️</li>
+					<li>IB 2023 graduate 📚</li>
+					<li>AITU MCS freshman🧮</li>
+					<li>Aidar Nugmanoff's intern👨‍💻</li>
+					<li>ex-fullstack dev at Whiteboard AI⬜</li>
+				</ul>
+			</section>
+			<section>
+				<p>Agenda</p>
+				<ul>
+					<li>Understand the nature of autonomous agents</li>
+					<li>Distinguish between prompt construction and prompt engineering</li>
+				</ul>
+			</section>
+			<section>
+				<section data-auto-animate>
+					<h3>немного пофилософствуем/порассуждаем</h3>
+				</section>
+				<section data-auto-animate>
+					<h3>what do you see?</h3>
+					<img src="./assets/stats.png" alt="incubator stats"
+						style="height: 580px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+				</section>
+				<section data-auto-animate>
+					<h5>топ любимых ИИ-приложений аппликантов n! 2024</h5>
+					<img src="./assets/stats.png" alt="incubator stats"
+						style="height: 580px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+				</section>
+				<section data-auto-animate>
+					<img src="./assets/stats.png" alt="incubator stats"
+						style="height: 380px; margin: 0 auto 3rem auto; background: transparent;" class="demo-logo">
+					<p><strong>37.7%</strong> аппликантов выбирают ChatGPT.</p>
+					<p>Note: Фактический процент может быть выше из-за неучтенных предпочтений.
+					</p>
+				</section>
+				<section data-auto-animate>
+					<h2>Any interesting insights?</h2>
+					<h2>О чем это говорит?</h2>
+				</section>
+				<section data-auto-animate>
+					<ul>
+						<li>ChatGPT решает <strong>много</strong> проблем</li>
+						<li>ChatGPT служит <strong>качественнее</strong>, чем остальные ИИ-приложения</li>
+						<li>ChatGPT <strong>уже</strong> решает то, что решают другие</li>
+					</ul>
+					<p><strong>P.S</strong>: Даже анализ данных выше был выполнен с помощью него 🤭</p>
+				</section>
+				<section data-auto-animate>
+					<h2>Поэтому задумайтесь</h2>
+					<ul>
+						<li>решает ли уже что-то/кто-то тоже самое?</li>
+						<li>решает ли это что-то/кто-то лучше вашего продукта?</li>
+						<li>что выгоднее пользователю: оставить все как есть или платить вам?</li>
+					</ul>
+				</section>
+				<section data-auto-animate>
+					<h2>Hell-no ideas</h2>
+					<ul>
+						<li>text-to-text</li>
+						<li>image-to-text</li>
+						<li>audio-to-text</li>
+						<li>video-to-text</li>
+					</ul>
+					<h2>GPT <string>уже</string> делает это в один шаг.</h2>
+				</section>
+				<section data-auto-animate>
+					<h2>Yes ideas</h2>
+					<ul>
+						<li>image-to-image</li>
+						<li>video-to-video</li>
+						<li>audio-to-audii</li>
+						<li>image-to-video</li>
+						<li>and so on</li>
+					</ul>
+					<h2>GPT может делать это в несколько шагов.</h2>
+				</section>
+				<section data-auto-animate>
+					<h2>Hell-yes ideas</h2>
+					<ul>
+						<li>credentials-to-actions</li>
+						<li>actions-to-actions</li>
+						<li>nothing-to-everything</li>
+					</ul>
+					<h2>GPT может делать это в тысячу шагов.</h2>
+				</section>
+				<section data-auto-animate>
+					<h2>HELLLLL-YESS ideas</h2>
+					<p>What can I build that Sam Altman never will?</p>
+				</section>
+			</section>
+			<section>
+				<section data-auto-animate>
+					<h3>Autonomous Agents</h3>
+					<p>Простыми словами - робот/офисная машина.</p>
+					<img src="./assets/rep.jpg" alt="incubator stats"
+						style="height: 380px; margin: 0 auto 3rem auto; background: transparent;" class="demo-logo">
+				</section>
+				<section data-auto-animate>
+					<h3>Autonomous Agents</h3>
+					<p>Простыми словами - робот/офисная машина.</p>
+					<img src="./assets/rep.jpg" alt="incubator stats"
+						style="height: 380px; margin: 0 auto 3rem auto; background: transparent;" class="demo-logo">
+					<p>Automate repetitive or complex tasks.</p>
+				</section>
+				<section>
+					<h2>Realms you need to master to build bulletproof autonomous agents</h2>
+					<ul>
+						<li>HTTP world: cookies, user-agents, access & refresh tokens</li>
+						<li>Backend world: repeatable jobs, SQL & NoSQL databases, error handling, job dispatching</li>
+						<li>LLM world: prompt construction, prompt engineering(CoT, RAG, etc.)</li>
+					</ul>
+				</section>
+				<section data-auto-animate>
+					<h2>Project example</h2>
+					<h5>Как скипать пары в универе и не ухудшить attendance?</h5>
+				</section>
+				<section data-background-image="./assets/aituskipman.png" data-background-size="90%">
+				</section>
+				<section data-background-image="./assets/bot-example.png" data-background-size="50%">
+				</section>
+				<section data-auto-animate>
+					<pre><code data-trim data-noescape>
+						function authorizeToMicrosoft(
+							email: string,
+							password: string,
+						): Map<string, string> | null {
+							//your Microsoft API access code here
+							// OR
+							//your puppeteer code here with email and password
+
+							// returns microsoft OpenID cookies
+							return new Map<string, string>();
+						}
+						</code></pre>
+				</section>
+				<section data-auto-animate>
+					<pre><code data-trim data-noescape>
+						function refreshToken(
+							microsoftCookies: Map<string, string>,
+						): void => {
+							//your puppeteer code here with microsoft cookies
+							//send request to refresh token in actualize our cookies
+						};
+						</code></pre>
+				</section>
+				<section data-auto-animate>
+					<pre><code data-trim data-noescape>
+						function authorizeToMoodle (microsoftCookies: Map<string, string>): Cookie[] {
+							const moodleAuthUrl = 'https://moodle.astanait.edu.kz/auth/oidc/';
+							// your HTTP request OR puppeteer code here with microsoft cookies
+							return [
+								{
+									name: 'MoodleSession',
+									value: '1234',
+								},
+							];
+						};
+						</code></pre>
+				</section>
+				<section data-auto-animate>
+					<pre><code data-trim data-noescape>
+						type Course = {
+							id: number;
+							name: string;
+							url: string;
+							attendance: {
+							  attendance: number;
+							  total: number;
+							} | null;
+							examSchedule:
+							  | {
+								  date: Date;
+								  time: string;
+								  room: string;
+								}[]
+							  | null;
+							syllabus: string | null;
+						};
+						</code></pre>
+				</section>
+				<section data-auto-animate>
+					<pre><code data-trim data-noescape>
+						async function getCourseAttendance(course: Course, moodleCookies: Cookie[]) {}
+						async function getCourseExamSchedule(course: Course, moodleCookies: Cookie[]) {}
+						async function getCourseSyllabus(course: Course, moodleCookies: Cookie[]) {}
+						async function getCourseGrades(course: Course, moodleCookies: Cookie[]) {}
+						</code></pre>
+				</section>
+				<section data-auto-animate>
+					<pre><code data-trim>
+					async function checkSkipPossibility(
+						coursesWithInformation: Course[]
+					) {}
+					</code></pre>
+				</section>
+				<section data-auto-animate>
+					<pre><code data-trim>
+					const systemPrompt = `You are university undergraduate student, who can skip classes and never get punished.
+					You will get my courses information with syllabus, current attendance, exam schedule and grades.
+					You should analyze this information and decide in what days you can skip.
+					Please return your decision in the following format:
+					[
+						{
+							"courseId": 1,
+							"skipDays": [Jan 23, Jan 26, Jan 29],
+							"importantDates": [Jan 24, Jan 27, Jan 30],
+							"reasoning": "It is recommended to not skip on important dates because you will have Quiz2, Quiz3 and practice defense"
+						},
+						{
+							"courseId": 2,
+							"skipDays": [Jan 24, Jan 27, Jan 30],
+							"importantDates": [Jan 23, Jan 26, Jan 29],
+							"reasoning": "It is recommended to skip on important dates because you will have Quiz1,  Quiz2 and practice defense"
+						},
+						{
+							"courseId": 3,
+							"skipDays": [Feb 24, Feb 29, Feb 30],
+							"importantDates": [Feb 25, Feb 26, Feb 27],
+							"reasoning": "It is recommended to skip on important dates because you will have Quiz1,  Quiz2 and practice defense"
+						}
+					]`
+					</code></pre>
+				</section>
+				<section data-auto-animate>
+					<pre><code data-trim>
+					const userPrompt = `
+						Here is my courses information with syllabus, current attendance, exam schedule and grades:
+						${coursesWithInformation}
+					`;
+					</code></pre>
+				</section>
+				<section data-auto-animate>
+					<pre><code data-trim>
+						npm i openai
+						</code></pre>
+					<pre><code data-trim>
+					const openai = new OpenAI({
+						apiKey: process.env.OPENAI_API_KEY,
+					});
+					</code></pre>
+				</section>
+				<section data-auto-animate>
+					<pre><code data-trim>
+					const response = await openai.chat.completions.create({
+						model: 'gpt-4o',
+						messages: [
+							{
+								role: 'system',
+								content: systemPrompt,
+							},
+							{
+								role: 'user', 
+								content: userPrompt 
+							},
+						],
+						response_format: {
+							type: 'json_object',
+						},
+					});
+					return response.choices[0].message.content;
+					</code></pre>
+				</section>
+				<section data-auto-animate>
+					<p>Next steps:</p>
+					<ul>
+						<li>Achieve repeatable database synchroniztion</li>
+						<li>Run GPT over your database to schedule skip decisions</li>
+						<li>Make a communication between client and server</li>
+					</ul>
+				</section>
+				<section data-auto-animate>
+					<p>Теперь имея rock-solid system architecture мы можем расширять функционал:</p>
+					<ul>
+						<li>Summary лекций</li>
+						<li>Автоматизация домашнего задания</li>
+						<li>Предупреждение о важных экзаменах</li>
+						<li>Утилизация GPT Bots по каждому курсу для подготовки</li>
+					</ul>
+				</section>
+				<section data-auto-animate>
+					<p>To sum up, we derive core principle of autonomous agents:</p>
+					<ul>
+						<li>Search for repetitive cycles that need automation</li>
+						<li>Break down cycle into a separate step independent functions</li>
+						<li>Actualize information every month/week/day/hour</li>
+						<li>Build client communication: Telegram bot/Google Calendar/Web-app</li>
+					</ul>
+				</section>
+				<section data-auto-animate>
+					<p>Autonomous agent is initially a non-AI system that needs environmental adaptation, while the
+						outputs and decision making process can be modified/achieved with AI integration</p>
+				</section>
+				<section data-auto-animate>
+					<p>Autonomous agent is initially a non-AI system that needs environmental adaptation, while the
+						outputs and decision making process can be modified/achieved with AI integration</p>
+					<p>Hence, autonomous agent is an architecture, while prompt engineernig is a tool</p>
+				</section>
+			</section>
+			<section>
+				<h2>Prompt construction != Prompt engineering</h2>
+				<img src="./assets/youtube-video.png" alt="prompt construction"
+					style="height: 280px; margin: 0 auto 4rem auto; background: transparent;" class="demo-logo">
+			</section>
+			<section data-auto-animate>
+				<h4>Importance of Each Section in Prompt Construction</h4>
+				<table style="width: 100%; border-collapse: collapse; font-size: 22px;">
+					<thead>
+						<tr>
+							<th style="border: 1px solid black; padding: 8px;">Section</th>
+							<th style="border: 1px solid black; padding: 8px;">Importance Level</th>
+							<th style="border: 1px solid black; padding: 8px;">Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Task</td>
+							<td style="border: 1px solid black; padding: 8px;">Mandatory</td>
+							<td style="border: 1px solid black; padding: 8px;">Clearly state the action you want ChatGPT
+								to perform, starting with an action verb.</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Context</td>
+							<td style="border: 1px solid black; padding: 8px;">Important</td>
+							<td style="border: 1px solid black; padding: 8px;">Provide relevant background information
+								to constrain possibilities and guide the output.</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Exemplars</td>
+							<td style="border: 1px solid black; padding: 8px;">Nice to Have</td>
+							<td style="border: 1px solid black; padding: 8px;">Include examples to improve the quality
+								of the output by providing reference structures.</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Persona</td>
+							<td style="border: 1px solid black; padding: 8px;">Nice to Have</td>
+							<td style="border: 1px solid black; padding: 8px;">Specify who ChatGPT should emulate to
+								tailor the response to a particular perspective or expertise.</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Format</td>
+							<td style="border: 1px solid black; padding: 8px;">Nice to Have</td>
+							<td style="border: 1px solid black; padding: 8px;">Describe the desired format of the output
+								for clarity and usability.</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Tone</td>
+							<td style="border: 1px solid black; padding: 8px;">Nice to Have</td>
+							<td style="border: 1px solid black; padding: 8px;">Indicate the tone of the response to
+								match the desired style and emotional nuance.</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section data-auto-animate>
+				<h2>Roadmap generation example</h2>
+				<table style="width: 100%; border-collapse: collapse; font-size: 20px;">
+					<thead>
+						<tr>
+							<th>Section</th>
+							<th>Importance Level</th>
+							<th>Example for Roadmap Generation</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Task</td>
+							<td style="border: 1px solid black; padding: 8px;">Mandatory</td>
+
+							<td style="border: 1px solid black; padding: 8px;">Generate a comprehensive roadmap for
+								developing a new mobile application.</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Context</td>
+							<td style="border: 1px solid black; padding: 8px;">Important</td>
+							<td style="border: 1px solid black; padding: 8px;">The mobile application will target young
+								professionals who need a tool to manage their daily tasks and schedule efficiently. The
+								app should include features like task management, calendar integration, and reminders.
+							</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Exemplars</td>
+							<td style="border: 1px solid black; padding: 8px;">Nice to Have</td>
+							<td style="border: 1px solid black; padding: 8px;">For example, refer to the roadmap
+								structure used in the development of a similar productivity application like Todoist.
+							</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Persona</td>
+							<td style="border: 1px solid black; padding: 8px;">Nice to Have</td>
+							<td style="border: 1px solid black; padding: 8px;">You are a senior product manager with
+								extensive experience in mobile application development and project management.</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Format</td>
+							<td style="border: 1px solid black; padding: 8px;">Nice to Have</td>
+							<td style="border: 1px solid black; padding: 8px;">Provide the roadmap in a structured
+								format with sections for each development phase, including goals, timelines, and key
+								milestones.</td>
+						</tr>
+						<tr>
+							<td style="border: 1px solid black; padding: 8px;">Tone</td>
+							<td style="border: 1px solid black; padding: 8px;">Nice to Have</td>
+							<td style="border: 1px solid black; padding: 8px;">Use a professional and concise tone to
+								ensure clarity and focus.</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+			<section data-background-image="./assets/nodemap.png" data-background-size="65%"></section>
+			<section data-background-image="./assets/nodemap-res.png" data-background-size="25%"></section>
+			<section data-background-image="./assets/nodemap-front.png" data-background-size="45%"></section>
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+			autpPlayMedia: true,
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
