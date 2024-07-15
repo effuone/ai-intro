@@ -204,6 +204,130 @@ const worker = new Worker('taskQueue', async job => {
 });
                 </code></pre>
 			</section>
+			<section>
+				<h2>Message queuing</h2>
+				<h3>Real-world example: Hackathon Case</h3>
+			</section>
+			<section>
+				<section data-auto-animate>
+					<h2>Backend services</h2>
+					<p>LLM service</p>
+					<pre><code class="language-typescript">
+import openai from 'openai'
+class LLMService {
+	constructor() {
+		this.openai = new OpenAI({
+			apiKey: process.env.OPENAI_API_KEY
+		});
+		this.systemPrompt = "You are application reviewer. Please check if candidate fits us.";
+	}
+	async askLLM(userPrompt: string): Promise<string> {
+		// send request to LLM, process and return/stream text/JSON
+	}
+}
+					</code></pre>
+				</section>
+				<section data-auto-animate>
+					<h2>Backend services</h2>
+					<p>Github service</p>
+					<pre><code class="language-typescript">
+class GitHubService {
+	async fetchUserData(gitHubHandle: string): Promise<any> {
+		// Fetch user data from GitHub
+	}
+	
+	async checkForPlagiarism(repoUrl: string): Promise<number> {
+		// Check for potential plagiarism in percents
+	}
+}
+					</code></pre>
+				</section>
+				<section data-auto-animate>
+					<h2>Backend services</h2>
+					<p>Telegram service</p>
+					<pre><code class="language-typescript">
+class TelegramService {
+	async sendDecision(mentorId: string, decision: string): Promise<void> {
+		// Send decision to the mentor via Telegram
+	}
+	
+	async getFeedbackFromMentor(mentorId: number, feedback: string, systemValues: string): Promise<string> {
+		// Analyze feedback from the mentor and apply prompt-tuning
+		// Returns updated system values based on the feedback
+	}
+}					  
+					</code></pre>
+				</section>
+				<section data-auto-animate>
+					<h2>Backend services</h2>
+					<p>Database service</p>
+					<pre><code class="language-typescript">
+class DatabaseService {
+	async fetchApplicationData(): Promise<any[]> {
+		// Fetch application data from Google Sheets
+	}
+	
+	async saveReviewResult(applicationId: string, result: any): Promise<void> {
+		// Save the review result to Google Sheets
+	}
+}										
+					</code></pre>
+				</section>
+			</section>
+			<section>
+				<h2>Review service</h2>
+				<pre><code class="language-typescript">
+import { Queue, Worker } from 'bullmq';
+import Redis from 'ioredis';
+
+class ReviewService {
+	private gitHubService: GitHubService;
+	private telegramService: TelegramService;
+	private llmService: LLMService;
+	private databaseService: DatabaseService;
+	private reviewQueue: Queue;
+
+	constructor() {
+		this.gitHubService = new GitHubService();
+		this.telegramService = new TelegramService();
+		this.llmService = new LLMService();
+		this.databaseService = new DatabaseService();
+		const redisConnection = new Redis();
+		this.reviewQueue = new Queue('reviewQueue', { connection: redisConnection });
+	}
+
+	async queueApplicationForReview(application: any): Promise<void> {
+		await this.reviewQueue.add('reviewTask', { application });
+	}
+
+	async reviewApplication(application: any): Promise<any> {
+		// Process application data
+		const userData = await this.gitHubService.fetchUserData(application.gitHubHandle);
+		const decision = await this.llmService.processApplication(application);
+
+		if(decision.uncertain) {
+			// Send to mentor for feedback
+			await this.telegramService.sendDecision(application.mentorId, decision.summaryAndReasoning);
+		} else {
+			// Save the result
+			await this.databaseService.saveReviewResult(application.id, decision);
+		}
+
+		return decision;
+	}
+
+	setupWorker() {
+		new Worker('reviewQueue', async job => {
+			const application = job.data.application;
+			return this.reviewApplication(application);
+		}, {
+			connection: this.redisConnection
+		});
+	}
+}
+					
+				</code></pre>
+			</section>
 		</div>
 	</div>
 
