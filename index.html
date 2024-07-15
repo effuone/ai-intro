@@ -328,6 +328,25 @@ class ReviewService {
 					
 				</code></pre>
 			</section>
+			<section>
+				<h2>And the final step</h2>
+				<pre><code class="language-javascript">
+// Initialize ReviewService and setup worker
+const reviewService = new ReviewService();
+reviewService.setupWorker();
+
+// Example application data
+const application = {
+	id: 'app123',
+	userId: 'user456',
+	gitHubHandle: 'userGithub',
+	// ... other application data
+};
+
+// Queue an application for review
+reviewService.queueApplicationForReview(application);
+				</code></pre>
+			</section>
 		</div>
 	</div>
 
